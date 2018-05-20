@@ -20,6 +20,15 @@ public class User
     private String linkInUrl;
     private String gitHubUrl;
 
+
+    public User(){
+
+    }
+    public User(String email, String password){
+        this.email=email;
+        this.password=password;
+    }
+
     public String getGitHubUrl()
     {
         return gitHubUrl;

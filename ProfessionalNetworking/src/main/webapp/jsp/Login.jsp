@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,6 +29,7 @@
         
         <button type="submit" id="btnLogin">Login</button>
         <button type="submit" id="btnSignup" formaction="http://localhost:8080/Registration" formnovalidate>Sign Up</button>
+        <span id="error"><%=(request.getAttribute("errMessage") == null) ? "": request.getAttribute("errMessage")%></span><br/>
         <input type="checkbox" checked="checked" name="remember"> Remember me
     </div>
 

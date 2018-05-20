@@ -44,5 +44,14 @@ public class UserDAO
         addUser(user);
     }
 
+    public User authenticateUser(User user){
+        for(Map.Entry<String, User> entry : usersDb.entrySet()){
+            if(entry.getValue().getEmail().equals(user.getEmail()) && entry.getValue().getPassword().equals(user.getPassword()))
+                return entry.getValue();
+        }
+
+        return null;
+    }
+
 
 }

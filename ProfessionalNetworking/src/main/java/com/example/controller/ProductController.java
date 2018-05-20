@@ -21,7 +21,7 @@ import com.example.util.DBConnection;
 /**
  * Servlet implementation class ProductController
  */
-@WebServlet({"/Resume"})
+@WebServlet({"/Product"})
 public class ProductController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

@@ -1,5 +1,8 @@
 package com.example.controller;
 
+import com.example.dao.UserDAO;
+import com.example.model.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,12 +19,24 @@ public class Login extends HttpServlet
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
-        req.getRequestDispatcher("/html/Login.html").forward(req, resp);
+        req.getRequestDispatcher("/jsp/Login.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
+        String email=req.getParameter("email");
+        String password=req.getParameter("password");
 
+        User user=new User(email, password);
+        user=new UserDAO().authenticateUser(user);
+
+        if(user!=null){
+            resp.sendRedirect("Resume");
+        }
+        else{
+            req.setAttribute("errMessage", "Invalid login credentials!");
+            req.getRequestDispatcher("/jsp/Login.jsp").forward(req, resp);
+        }
     }
 }
