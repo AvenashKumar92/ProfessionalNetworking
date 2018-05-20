@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<%@ page import="com.example.util.Constants" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 
 <title>Registration</title>
@@ -116,6 +117,7 @@
                 </div>
             </div>
         </div>
+        <span class="error"><%=(request.getAttribute(Constants.USER_ALREADYEXIST_ATTRIBUTE) == null) ? "" : request.getAttribute(Constants.USER_ALREADYEXIST_ATTRIBUTE)%></span><br/>
         <button type="submit" class="w3-button w3-block w3-black">Send</button>
     </form>
 </div>
