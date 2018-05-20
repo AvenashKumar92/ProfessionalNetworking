@@ -1,7 +1,11 @@
 package com.example.controller;
 
 import com.example.dao.UserDAO;
+import com.example.exception.AuthenticationException;
 import com.example.model.User;
+import com.example.util.Constants;
+import com.example.util.CookieManager;
+import com.example.util.General;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,14 +32,27 @@ public class Login extends HttpServlet
         String email=req.getParameter("email");
         String password=req.getParameter("password");
 
-        User user=new User(email, password);
-        user=new UserDAO().authenticateUser(user);
+        User loginUser=new User(email, password);
 
-        if(user!=null){
+        try
+        {
+            loginUser = new UserDAO().authenticateUser(loginUser);
+
+            //Create or Delete cookies
+            boolean rememberMe= General.str2Bool(req.getParameter("remember"));
+            if(rememberMe)
+                CookieManager.storeUserCookies(resp, loginUser.getEmail(), loginUser.getPassword(), rememberMe);
+            else
+                CookieManager.clearAllCookies(req, resp);
+
+            //Create user session
+            req.getSession().setAttribute(Constants.USER_ATTRIBUTE, loginUser);
+
+            //Redirect to Resume
             resp.sendRedirect("Resume");
         }
-        else{
-            req.setAttribute("errMessage", "Invalid login credentials!");
+        catch (AuthenticationException e){
+            req.setAttribute(Constants.AUTH_ERROR_ATTRIBUTE, e.getMessage());
             req.getRequestDispatcher("/jsp/Login.jsp").forward(req, resp);
         }
     }

@@ -7,11 +7,11 @@ import java.util.List;
  */
 public class User
 {
-    private String email;           //Req
-    private String fName;           //Req
-    private String lName;           //Req
-    private String password;        //Req
-    private String imgURL;
+    private String email;               //Req
+    private String firstName;           //Req
+    private String lastName;            //Req
+    private String password;            //Req
+    private String profileImgName;
     private String profession;
     private Contact contact;
     private List<JobExperience> jobExperiences;
@@ -21,12 +21,15 @@ public class User
     private String gitHubUrl;
 
 
-    public User(){
-
+    public User()
+    {
+        profileImgName = "DefaultImg.png";
     }
-    public User(String email, String password){
-        this.email=email;
-        this.password=password;
+
+    public User(String email, String password)
+    {
+        this();
+        this.email = email; this.password = password;
     }
 
     public String getGitHubUrl()
@@ -59,24 +62,24 @@ public class User
         this.email = email;
     }
 
-    public String getfName()
+    public String getFirstName()
     {
-        return fName;
+        return firstName;
     }
 
-    public void setfName(String fName)
+    public void setFirstName(String firstName)
     {
-        this.fName = fName;
+        this.firstName = firstName;
     }
 
-    public String getlName()
+    public String getLastName()
     {
-        return lName;
+        return lastName;
     }
 
-    public void setlName(String lName)
+    public void setLastName(String lastName)
     {
-        this.lName = lName;
+        this.lastName = lastName;
     }
 
     public String getPassword()
@@ -89,14 +92,14 @@ public class User
         this.password = password;
     }
 
-    public String getImgURL()
+    public String getProfileImgName()
     {
-        return imgURL;
+        return profileImgName;
     }
 
-    public void setImgURL(String imgURL)
+    public void setProfileImgName(String profileImgName)
     {
-        this.imgURL = imgURL;
+        this.profileImgName = profileImgName;
     }
 
     public String getProfession()

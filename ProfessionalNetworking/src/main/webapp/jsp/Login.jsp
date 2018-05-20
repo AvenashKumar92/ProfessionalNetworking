@@ -1,3 +1,4 @@
+<%@ page import="com.example.util.Constants" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -10,30 +11,41 @@
 </head>
 <body>
 
+<%
+    // Create cookies for first and last names.
+    Cookie[] cookies = request.getCookies();
+    String email="";
+    String password="";
+    String remember="";
+    for(int i=0; i<cookies.length; ++i){
+        if(cookies[i].getName().equalsIgnoreCase(Constants.COOKIE_EMAIL))
+            email=cookies[i].getValue();
+        else if(cookies[i].getName().equals(Constants.COOKIE_PASS))
+            password=cookies[i].getValue();
+        else if(cookies[i].getName().equalsIgnoreCase(Constants.COOKIE_REMEMBER))
+            remember=cookies[i].getValue();
+    }
+%>
 
-<!--button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button-->
-
-<!--div id="id01" class="modal"-->
-  
-  <form class="modal-content" action="http://localhost:8080/Login" method="post">
+<form class="modal-content" action="/Login" method="post">
     <div class="imgcontainer">
-      <img src="../img/Login/Login.png" alt="Avatar" class="avatar">
+        <img src="../img/Login/DefaultImg.png" alt="Avatar" class="avatar">
     </div>
 
     <div class="container">
-      <label for="email"><b>Email</b></label>
-      <input type="text" placeholder="Enter Email" name="email" id="email" required>
+        <label for="email"><b>Email</b></label>
+        <input type="text" placeholder="Enter Email" name="email" id="email" value="<%=email%>" required>
 
-      <label for="password"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="password" id="password" required>
-        
+        <label for="password"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" id="password" value="<%=password%>" required>
+
         <button type="submit" id="btnLogin">Login</button>
-        <button type="submit" id="btnSignup" formaction="http://localhost:8080/Registration" formnovalidate>Sign Up</button>
-        <span id="error"><%=(request.getAttribute("errMessage") == null) ? "": request.getAttribute("errMessage")%></span><br/>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
+        <button type="submit" id="btnSignup" formaction="/Registration" formnovalidate formmethod="get">Sign Up</button>
+        <span id="error"><%=(request.getAttribute(Constants.AUTH_ERROR_ATTRIBUTE) == null) ? "" : request.getAttribute(Constants.AUTH_ERROR_ATTRIBUTE)%></span><br/>
+        <input type="checkbox" name="remember" <%=remember%>> Remember me
     </div>
 
-  </form>
+</form>
 
 <!--form class="modal-content" action="http://localhost:8080/Registration">
     <div class="container">

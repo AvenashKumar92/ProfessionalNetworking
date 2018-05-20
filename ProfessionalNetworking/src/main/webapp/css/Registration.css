@@ -3,16 +3,28 @@ html,body,h1,h2,h3,h4 {
 }
 
 .mySlides {
-    display:none
+    display:none;
 }
 
 .w3-tag, .fa {
-    cursor:pointer
+    cursor:pointer;
+}
+#img-div{
+    text-align: center;
+}
+#avatar{
+    height: 300px;
+    width: 300px;
 }
 
 .w3-tag {
     height:15px;
     width:15px;
     padding:0;
-    margin-top:6px
+    margin-top:6px;
+}
+
+.error{
+    color: red;
+    text-align: center;
 }

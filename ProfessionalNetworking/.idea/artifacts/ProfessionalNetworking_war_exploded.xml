@@ -9,6 +9,11 @@
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: jstl:jstl:1.2" />
           <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.4" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-coyote:7.0.68" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-servlet-api:7.0.68" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-juli:7.0.68" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-util:7.0.68" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-api:7.0.68" />
         </element>
       </element>
       <element id="directory" name="META-INF">

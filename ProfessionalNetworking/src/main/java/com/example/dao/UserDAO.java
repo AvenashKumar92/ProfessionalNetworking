@@ -1,5 +1,6 @@
 package com.example.dao;
 
+import com.example.exception.AuthenticationException;
 import com.example.model.User;
 import com.example.util.DBConnection;
 
@@ -44,13 +45,13 @@ public class UserDAO
         addUser(user);
     }
 
-    public User authenticateUser(User user){
+    public User authenticateUser(User user) throws AuthenticationException{
         for(Map.Entry<String, User> entry : usersDb.entrySet()){
             if(entry.getValue().getEmail().equals(user.getEmail()) && entry.getValue().getPassword().equals(user.getPassword()))
                 return entry.getValue();
         }
 
-        return null;
+        throw new AuthenticationException("Invalid login credentials!");
     }
 
 
