@@ -47,11 +47,21 @@ public class UserDAO
 
     public User authenticateUser(User user) throws AuthenticationException{
         for(Map.Entry<String, User> entry : usersDb.entrySet()){
-            if(entry.getValue().getEmail().equals(user.getEmail()) && entry.getValue().getPassword().equals(user.getPassword()))
+            if(entry.getValue().getEmail().equalsIgnoreCase(user.getEmail()) && entry.getValue().getPassword().equals(user.getPassword()))
                 return entry.getValue();
         }
 
         throw new AuthenticationException("Invalid login credentials!");
+    }
+
+    public boolean isUserAlreadyExist(User user){
+        try{
+            authenticateUser(user);
+            return true;
+        }
+        catch (AuthenticationException e){
+            return false;
+        }
     }
 
 

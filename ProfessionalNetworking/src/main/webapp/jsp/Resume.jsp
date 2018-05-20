@@ -19,7 +19,11 @@
             user.getContact().getAddress().getCountry();
 
     String fullName=user.getFirstName()+" "+user.getLastName();
-    String profileImgPath="../img/Resume/"+user.getProfileImgName();
+
+    String profileImageName=user.getProfileImgName();
+    if(profileImageName==null || profileImageName.equals(""))
+        profileImageName="DefaultImg.png";
+    String profileImgPath="../img/Resume/"+profileImageName;
 %>
 
 <!-- Page Container -->

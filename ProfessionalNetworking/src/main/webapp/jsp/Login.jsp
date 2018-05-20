@@ -17,13 +17,13 @@
     String email="";
     String password="";
     String remember="";
-    for(int i=0; i<cookies.length; ++i){
-        if(cookies[i].getName().equalsIgnoreCase(Constants.COOKIE_EMAIL))
-            email=cookies[i].getValue();
-        else if(cookies[i].getName().equals(Constants.COOKIE_PASS))
-            password=cookies[i].getValue();
-        else if(cookies[i].getName().equalsIgnoreCase(Constants.COOKIE_REMEMBER))
-            remember=cookies[i].getValue();
+    for(Cookie cookie:cookies){
+        if(cookie.getName().equalsIgnoreCase(Constants.COOKIE_EMAIL))
+            email=cookie.getValue();
+        else if(cookie.getName().equals(Constants.COOKIE_PASS))
+            password=cookie.getValue();
+        else if(cookie.getName().equalsIgnoreCase(Constants.COOKIE_REMEMBER))
+            remember=cookie.getValue();
     }
 %>
 

@@ -36,27 +36,25 @@ public class Registration extends HttpServlet
         req.getRequestDispatcher("/jsp/Registration.jsp").forward(req, resp);
     }
 
-    private String uploadImage(HttpServletRequest request){
+    private String uploadImage(HttpServletRequest request)
+    {
         try
         {
             Part filePart = request.getPart("imgURL"); // Retrieves <input type="file" name="file">
             String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
             InputStream fileContent = filePart.getInputStream();
 
-            String imageDir="C:\\Users\\Avenash_2\\Documents\\Personal\\Study\\Academic\\MSCS2\\WAP\\Project3\\ProfessionalNetworking\\src\\main\\webapp\\img\\Resume";
-            String imageName=imageDir+"\\"+fileName;
+            String imageDir = "C:\\Users\\Avenash_2\\Documents\\Personal\\Study\\Academic\\MSCS2\\WAP\\Project3\\ProfessionalNetworking\\src\\main\\webapp\\img\\Resume";
+            String imageName = imageDir + "\\" + fileName;
             File uploadFile = new File(imageName);
 
-            java.nio.file.Files.copy(
-                    fileContent,
-                    uploadFile.toPath(),
-                    StandardCopyOption.REPLACE_EXISTING);
+            java.nio.file.Files.copy(fileContent, uploadFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
             IOUtils.closeQuietly(fileContent);
 
             return fileName;
         }
-        catch (IOException|ServletException e)
+        catch (IOException | ServletException e)
         {
             e.printStackTrace();
         }
@@ -67,24 +65,25 @@ public class Registration extends HttpServlet
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
         //Since we are uploading image file
-        PrintWriter out=resp.getWriter();
-        if(!ServletFileUpload.isMultipartContent(req)){
+        PrintWriter out = resp.getWriter();
+        if (!ServletFileUpload.isMultipartContent(req))
+        {
             out.println("Nothing to upload");
             return;
         }
 
-        String profileImgName=uploadImage(req);
+        String profileImgName = uploadImage(req);
 
-        Address address=new Address();
+        Address address = new Address();
         address.setCity(req.getParameter("city"));
         address.setState(req.getParameter("state"));
         address.setCountry(req.getParameter("country"));
 
-        Contact contact=new Contact();
+        Contact contact = new Contact();
         contact.setAddress(address);
         contact.setContactNo(req.getParameter("contactNo"));
 
-        User user=new User(req.getParameter("email"), req.getParameter("password"));
+        User user = new User(req.getParameter("email"), req.getParameter("password"));
         user.setFirstName(req.getParameter("firstName"));
         user.setLastName(req.getParameter("lastName"));
         user.setProfession(req.getParameter("profession"));
@@ -92,28 +91,29 @@ public class Registration extends HttpServlet
         user.setContact(contact);
 
 
+        UserDAO userDAO = new UserDAO();
+        boolean isUserExist=userDAO.isUserAlreadyExist(user);
 
-        UserDAO userDAO=new UserDAO();
-
-        try
+        if (isUserExist)
         {
-            userDAO.authenticateUser(user);
+            //Set request attribute
+            req.setAttribute(Constants.USER_ATTRIBUTE, user);
             req.setAttribute(Constants.USER_ALREADYEXIST_ATTRIBUTE, "Provided email is already associated with existing user!");
             doGet(req, resp);
+            return;
         }
-        catch (AuthenticationException e)
-        {
-            //Clear all cookies of old user
-            CookieManager.clearAllCookies(req, resp);
 
-            //Add user in database
-            userDAO.addUser(user);
+        //Clear all cookies of old user
+        CookieManager.clearAllCookies(req, resp);
 
-            //Create user session
-            req.getSession().setAttribute(Constants.USER_ATTRIBUTE, user);
+        //Create user session
+        req.getSession().setAttribute(Constants.USER_ATTRIBUTE, user);
 
-            //Open user resume
-            resp.sendRedirect("Resume");
-        }
+        //Add user in database
+        userDAO.addUser(user);
+
+        //Open user resume
+        resp.sendRedirect("Resume");
+
     }
 }

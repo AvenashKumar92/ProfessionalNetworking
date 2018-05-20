@@ -1,4 +1,5 @@
 <%@ page import="com.example.util.Constants" %>
+<%@ page import="com.example.model.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 
@@ -15,6 +16,54 @@
 
 <body>
 
+<%
+    Object objUser=request.getAttribute(Constants.USER_ATTRIBUTE);
+    String email="";
+    String firstName="";
+    String lastName="";
+    String profession="";
+    String number="";
+    String city="";
+    String state="";
+    String country="";
+
+    if(objUser!=null)
+    {
+        User user = (User) objUser;
+        email = user.getEmail();
+        if (email == null)
+            email = "";
+
+        firstName = user.getFirstName();
+        if (firstName == null)
+            firstName = "";
+
+        lastName = user.getLastName();
+        if (lastName == null)
+            lastName = "";
+
+        profession = user.getProfession();
+        if (profession == null)
+            profession = "";
+
+        number = user.getContact().getContactNo();
+        if (number == null)
+            number = "";
+
+        city = user.getContact().getAddress().getCity();
+        if (city == null)
+            city = "";
+
+        state = user.getContact().getAddress().getState();
+        if (state == null)
+            state = "";
+
+        country = user.getContact().getAddress().getCountry();
+        if (country == null)
+            country = "";
+
+    }
+%>
 
 <!-- Content -->
 <div class="w3-content" style="max-width:1100px;margin-top:10px;margin-bottom:10px">
@@ -32,17 +81,17 @@
                 <div class="w3-section">
                     <label>First Name</label>
                     <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" name="firstName"
-                           required>
+                           required value="<%=firstName%>">
                 </div>
                 <div class="w3-section">
                     <label>Last Name</label>
                     <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" name="lastName"
-                           required>
+                           required value="<%=lastName%>">
                 </div>
                 <div class="w3-section">
                     <label>Email</label>
                     <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" name="email"
-                           required>
+                           required value="<%=email%>">
                 </div>
                 <div class="w3-section">
                     <label>New Password</label>
@@ -62,27 +111,27 @@
                 <div class="w3-section">
                     <label>Profession</label>
                     <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" name="profession"
-                           required>
+                           required value="<%=profession%>">
                 </div>
                 <div class="w3-section">
                     <label>Contact#</label>
-                    <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="number"
-                           name="contactNo" required>
+                    <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="number" name="contactNo"
+                           required value="<%=number%>">
                 </div>
                 <div class="w3-section">
                     <label>City</label>
                     <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" name="city"
-                           required>
+                           required value="<%=city%>">
                 </div>
                 <div class="w3-section">
                     <label>State</label>
                     <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" name="state"
-                           required>
+                           required value="<%=state%>">
                 </div>
                 <div class="w3-section">
                     <label>Country</label>
-                    <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text"
-                           name="country" required>
+                    <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" name="country"
+                           required value="<%=country%>">
                 </div>
             </div>
 
@@ -94,7 +143,7 @@
                 <div class="w3-section">
                     <label>Profile Image</label>
                     <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="file"
-                           name="imgURL" onchange="readURL(this);" required>
+                           name="imgURL" onchange="readURL(this);" value="<%=email%>">
                 </div>
             </div>
 
