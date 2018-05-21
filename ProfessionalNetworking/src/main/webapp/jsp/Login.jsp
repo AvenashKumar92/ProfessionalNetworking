@@ -42,21 +42,9 @@
         <button type="submit" id="btnLogin">Login</button>
         <button type="submit" id="btnSignup" formaction="/Registration" formnovalidate formmethod="get">Sign Up</button>
         <span id="error"><%=(request.getAttribute(Constants.AUTH_ERROR_ATTRIBUTE) == null) ? "" : request.getAttribute(Constants.AUTH_ERROR_ATTRIBUTE)%></span><br/>
-        <input type="checkbox" name="remember" <%=remember%>> Remember me
+        <label><input type="checkbox" name="remember" <%=remember%>> Remember me</label>
     </div>
 
 </form>
-
-<!--form class="modal-content" action="http://localhost:8080/Registration">
-    <div class="container">
-        <button type="submit" id="btnSignup" formaction="http://localhost:8080/Registration">Sign Up</button>
-    </div>
-</form>
-
-<label>
-    <input type="checkbox" checked="checked" name="remember"> Remember me
-</label-->
-<!--/div-->
-
 </body>
 </html>
