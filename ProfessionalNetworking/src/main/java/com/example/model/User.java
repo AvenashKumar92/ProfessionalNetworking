@@ -144,12 +144,18 @@ public class User
 
     public JobExperience[] getJobExperienceArray()
     {
+        if(jobExperiences==null)
+            jobExperiences=new ArrayList<>();
+
         JobExperience experienceArray[]=new JobExperience[jobExperiences.size()];
         return jobExperiences.toArray(experienceArray);
     }
 
     public Education[] getEducationArray()
     {
+        if(educations==null)
+            educations=new ArrayList<>();
+
         Education educationArray[]=new Education[educations.size()];
         return educations.toArray(educationArray);
     }

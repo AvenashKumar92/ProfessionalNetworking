@@ -127,10 +127,17 @@ function onClickBtnOkExperience(event){
     $('#id01').after($(infoDiv));
 
     //Clear all form fields
+    resetExperienceForm();
+}
+
+function resetExperienceForm() {
     $('#form-experience').trigger("reset");
 
-    //to=MONTHNAMES[(to.getMonth()+1)%12] + ' ' + to.getFullYear();
+    //Display hide able fields again, because checkbox is also reset
+    $(".hideable-check-job").show();
 }
+
+
 
 function onClickBtnOkEducation(event){
     //Close the dialog
@@ -156,9 +163,15 @@ function onClickBtnOkEducation(event){
     $('#id02').after($(infoDiv));
 
     //Clear all form fields
-    $('#form-education').trigger("reset");
+    resetEducationForm();
 }
 
+function resetEducationForm() {
+    $('#form-education').trigger("reset");
+
+    //Display hide able fields again, because checkbox is also reset
+    $(".hideable-check-edu").show();
+}
 
 function onWindowClick(event){
 
@@ -169,8 +182,8 @@ function onWindowClick(event){
         $("#id02").css("display", 'none');
 
         //Clear all form fields
-        $('#form-experience').trigger("reset");
-        $('#form-education').trigger("reset");
+        resetExperienceForm();
+        resetEducationForm();
     }
 }
 
