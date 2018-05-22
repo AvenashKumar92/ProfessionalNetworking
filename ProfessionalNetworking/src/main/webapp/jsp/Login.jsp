@@ -14,16 +14,20 @@
 <%
     // Create cookies for first and last names.
     Cookie[] cookies = request.getCookies();
-    String email="";
-    String password="";
-    String remember="";
-    for(Cookie cookie:cookies){
-        if(cookie.getName().equalsIgnoreCase(Constants.COOKIE_EMAIL))
-            email=cookie.getValue();
-        else if(cookie.getName().equals(Constants.COOKIE_PASS))
-            password=cookie.getValue();
-        else if(cookie.getName().equalsIgnoreCase(Constants.COOKIE_REMEMBER))
-            remember=cookie.getValue();
+    String email = "";
+    String password = "";
+    String remember = "";
+    if(cookies!=null)
+    {
+        for (Cookie cookie : cookies)
+        {
+            if (cookie.getName().equalsIgnoreCase(Constants.COOKIE_EMAIL))
+                email = cookie.getValue();
+            else if (cookie.getName().equals(Constants.COOKIE_PASS))
+                password = cookie.getValue();
+            else if (cookie.getName().equalsIgnoreCase(Constants.COOKIE_REMEMBER))
+                remember = cookie.getValue();
+        }
     }
 %>
 
