@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.dao.UserDAO;
 import com.example.exception.AuthenticationException;
 import com.example.model.*;
+import com.example.util.General;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,8 +22,8 @@ public class UpdateEducation extends HttpServlet
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
         String schoolName=req.getParameter("school");
-        String from=req.getParameter("from");
-        String to=req.getParameter("to");
+        String from= General.convertDateInSpecificFormat(req.getParameter("from"));
+        String to=General.convertDateInSpecificFormat(req.getParameter("to"));
         String degree=req.getParameter("degree");
 
         if(req.getParameter("current")!=null)

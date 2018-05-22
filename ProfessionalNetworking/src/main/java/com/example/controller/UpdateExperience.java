@@ -5,6 +5,7 @@ import com.example.exception.AuthenticationException;
 import com.example.model.Company;
 import com.example.model.JobExperience;
 import com.example.model.User;
+import com.example.util.General;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,8 +24,8 @@ public class UpdateExperience extends HttpServlet
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
         String employerName=req.getParameter("employer");
-        String from=req.getParameter("from");
-        String to=req.getParameter("to");
+        String from= General.convertDateInSpecificFormat(req.getParameter("from"));
+        String to=General.convertDateInSpecificFormat(req.getParameter("to"));
         String description=req.getParameter("description");
 
         if(req.getParameter("current")!=null)
