@@ -1,5 +1,6 @@
 package com.example.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,6 +31,13 @@ public class User
     {
         this();
         this.email = email; this.password = password;
+    }
+
+    public void addJobExperience(JobExperience jobExperience){
+        if(this.jobExperiences==null)
+            jobExperiences=new ArrayList<>();
+
+        jobExperiences.add(jobExperience);
     }
 
     public String getGitHubUrl()
@@ -125,6 +133,12 @@ public class User
     public List<JobExperience> getJobExperiences()
     {
         return jobExperiences;
+    }
+
+    public JobExperience[] getJobExperienceArray()
+    {
+        JobExperience experience[]=new JobExperience[jobExperiences.size()];
+        return jobExperiences.toArray(experience);
     }
 
     public void setJobExperiences(List<JobExperience> jobExperiences)

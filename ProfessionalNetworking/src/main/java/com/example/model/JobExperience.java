@@ -10,8 +10,20 @@ public class JobExperience
 {
     String designation;
     Company company;
-    Date from;
-    Date to;
+    String from;
+    String to;
+    String description;
+
+
+    public String getDescription()
+    {
+        return description;
+    }
+
+    public void setDescription(String description)
+    {
+        this.description = description;
+    }
 
     public String getDesignation()
     {
@@ -33,22 +45,22 @@ public class JobExperience
         this.company = company;
     }
 
-    public Date getFrom()
+    public String getFrom()
     {
         return from;
     }
 
-    public void setFrom(Date from)
+    public void setFrom(String from)
     {
         this.from = from;
     }
 
-    public Date getTo()
+    public String getTo()
     {
         return to;
     }
 
-    public void setTo(Date to)
+    public void setTo(String to)
     {
         this.to = to;
     }
