@@ -43,6 +43,9 @@ public class General
     }
 
     public static String convertDateInSpecificFormat(String date){
+        if(date==null)
+            return "";
+
         String[] arr=date.split("-");
 
         if(arr.length<2)

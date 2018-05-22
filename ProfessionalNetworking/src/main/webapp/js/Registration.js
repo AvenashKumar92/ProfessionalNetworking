@@ -10,8 +10,28 @@ $(function init(){
     var btnRight=$("#w3-right")[0];
     $(btnRight).click(plusDivs(1));
 
+    $("#submit").click(onSubmit);
+
+    $("#error-validation-confirmPass").hide();
+
     showDivs(slideIndex);
 })
+
+function onSubmit(event) {
+    let pass=$( "input[name='password']" ).val();
+    let cpass=$( "input[name='ConfirmPassword']" ).val();
+
+    if(pass!==cpass) {
+        //Update view
+        showDivs(slideIndex = 1);
+
+        //Display error
+        $("#error-validation-confirmPass").show();
+
+        //No need to submit request
+        return false;
+    }
+}
 
 
 

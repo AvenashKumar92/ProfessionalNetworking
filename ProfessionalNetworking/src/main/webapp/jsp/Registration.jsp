@@ -94,7 +94,7 @@
                            required value="<%=email%>">
                 </div>
                 <div class="w3-section">
-                    <label>New Password</label>
+                    <label>Password</label>
                     <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="password"
                            name="password" required>
                 </div>
@@ -104,6 +104,10 @@
                            name="ConfirmPassword" required>
                 </div>
 
+                <div class="w3-section">
+                    <span class="error" id="error-validation-confirmPass"> Password and Confirm Password fields should be same.
+                    </span>
+                </div>
             </div>
 
 
@@ -167,7 +171,7 @@
             </div>
         </div>
         <span class="error"><%=(request.getAttribute(Constants.USER_ALREADYEXIST_ATTRIBUTE) == null) ? "" : request.getAttribute(Constants.USER_ALREADYEXIST_ATTRIBUTE)%></span><br/>
-        <button type="submit" class="w3-button w3-block w3-black">Send</button>
+        <button type="submit" id ="submit" class="w3-button w3-block w3-black">Send</button>
     </form>
 </div>
 </body>
