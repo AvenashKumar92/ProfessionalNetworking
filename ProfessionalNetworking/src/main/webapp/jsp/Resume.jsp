@@ -60,7 +60,11 @@
                     </p>
                     <p id="edit"><label><i
                             class="fa fa-edit fa-fw w3-margin-right w3-large w3-text-teal"></i>Edit</label></p>
-                    <p id="publish"><label><i class="fa fa-check fa-fw w3-margin-right w3-large w3-text-teal"></i>Publish</label>
+                    <p id="publish"><label><i
+                            class="fa fa-check fa-fw w3-margin-right w3-large w3-text-teal"></i>Publish</label>
+                    </p>
+                    <p>
+                        <label id="logout"><i class="fa fa-sign-out fa-fw w3-margin-right w3-large w3-text-teal"></i>Logout</label>
                     </p>
                     <hr>
 

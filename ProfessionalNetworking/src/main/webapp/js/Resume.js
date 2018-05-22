@@ -10,6 +10,8 @@ $(function(){
     $("#ok-education").click(onClickBtnOkEducation);
     $('#edit-experience').click(onEditExperience);
     $('#edit-education').click(onEditEducation);
+    $('#logout').click(onLogout);
+
     hideAllEditBtn();
 
     $('#publish').click(onPublish);
@@ -25,6 +27,15 @@ function updateExperienceAPI(){
 
 function updateEducationAPI(){
     submitForm($('#form-education'))
+}
+
+function onLogout(event) {
+   /* $.get('/Logout').done(function (data) {
+        console.log('Application logout successfully');
+    }).fail(function (xhr, status, exception) {
+        console.log(xhr, status, exception);
+    });*/
+    window.location.replace("/Logout");
 }
 
 function submitForm(form){
