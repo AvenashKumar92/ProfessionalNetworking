@@ -40,6 +40,13 @@ public class User
         jobExperiences.add(jobExperience);
     }
 
+    public void addEducation(Education education){
+        if(this.educations==null)
+            educations=new ArrayList<>();
+
+        educations.add(education);
+    }
+
     public String getGitHubUrl()
     {
         return gitHubUrl;
@@ -137,8 +144,14 @@ public class User
 
     public JobExperience[] getJobExperienceArray()
     {
-        JobExperience experience[]=new JobExperience[jobExperiences.size()];
-        return jobExperiences.toArray(experience);
+        JobExperience experienceArray[]=new JobExperience[jobExperiences.size()];
+        return jobExperiences.toArray(experienceArray);
+    }
+
+    public Education[] getEducationArray()
+    {
+        Education educationArray[]=new Education[educations.size()];
+        return educations.toArray(educationArray);
     }
 
     public void setJobExperiences(List<JobExperience> jobExperiences)

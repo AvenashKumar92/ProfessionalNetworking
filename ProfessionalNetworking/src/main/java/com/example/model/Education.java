@@ -9,8 +9,8 @@ public class Education
 {
     School school;
     String degree;
-    Date from;
-    Date to;
+    String from;
+    String to;
 
     public School getSchool()
     {
@@ -32,22 +32,22 @@ public class Education
         this.degree = degree;
     }
 
-    public Date getFrom()
+    public String getFrom()
     {
         return from;
     }
 
-    public void setFrom(Date from)
+    public void setFrom(String from)
     {
         this.from = from;
     }
 
-    public Date getTo()
+    public String getTo()
     {
         return to;
     }
 
-    public void setTo(Date to)
+    public void setTo(String to)
     {
         this.to = to;
     }

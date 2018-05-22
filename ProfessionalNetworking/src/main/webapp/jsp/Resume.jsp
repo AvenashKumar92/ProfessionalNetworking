@@ -2,6 +2,7 @@
 <%@ page import="com.example.model.User" %>
 <%@ page import="com.example.model.JobExperience" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.model.Education" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
@@ -42,15 +43,21 @@
                 <div class="w3-display-container">
                     <img id="profile-img" src="<%=profileImgPath%>" style="width:100%" alt="ProfileImage">
                     <div class="w3-display-bottomleft w3-container w3-text-black">
-                        <h2><%=fullName%></h2>
+                        <h2><%=fullName%>
+                        </h2>
                     </div>
                 </div>
                 <div class="w3-container">
-                    <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i><%=user.getProfession()%></p>
-                    <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i><%=location%></p>
+                    <p>
+                        <i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i><%=user.getProfession()%>
+                    </p>
+                    <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i><%=location%>
+                    </p>
                     <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i><%=user.getEmail()%>
                     </p>
-                    <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i><%=user.getContact().getContactNo()%></p>
+                    <p>
+                        <i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i><%=user.getContact().getContactNo()%>
+                    </p>
                     <p id="edit"><label><i
                             class="fa fa-edit fa-fw w3-margin-right w3-large w3-text-teal"></i>Edit</label></p>
                     <p id="publish"><label><i class="fa fa-check fa-fw w3-margin-right w3-large w3-text-teal"></i>Publish</label>
@@ -124,11 +131,11 @@
 
                             <label for="from"><b>From </b></label>
                             <label for="current"><b>- Current</b></label>
-                            <input id='curr-job' type="checkbox" name="current" required>
+                            <input id='curr-job' type="checkbox" name="current">
                             <input type="month" name="from" required>
 
                             <label class="hideable-check-job" for="to"><b>To</b></label>
-                            <input class="hideable-check-job" type="month" name="to" required>
+                            <input class="hideable-check-job" type="month" name="to">
 
                             <label for="description"><b>Job Description</b></label>
                             <input type="text" placeholder="Job Description" name="description" required>
@@ -139,33 +146,44 @@
                 </div>
 
                 <%
-                    if(user!=null && user.getJobExperiences()!=null){
-                        JobExperience[] jobExperienceList=user.getJobExperienceArray();
+                    if (user != null && user.getJobExperiences() != null)
+                    {
+                        JobExperience[] jobExperienceList = user.getJobExperienceArray();
 
-                        for(JobExperience job:jobExperienceList)
+                        for (JobExperience job : jobExperienceList)
                         {
-                            if(job.getTo().equals("current")){%>
+                            if (job.getTo().equals("current"))
+                            {%>
 
-                            <div class="w3-container">
-                                <h5 class="w3-opacity"><b><%=job.getCompany().getName()%></b></h5>
-                                <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i><%=job.getFrom()%> - <span
-                                        class="w3-tag w3-teal w3-round">Current</span></h6>
-                                <p></p>
-                                <hr>
-                            </div>
+                <div class="w3-container">
+                    <h5 class="w3-opacity"><b><%=job.getCompany().getName()%>
+                    </b></h5>
+                    <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i><%=job.getFrom()%> -
+                        <span
+                                class="w3-tag w3-teal w3-round">Current</span></h6>
+                    <p><%=job.getDescription()%>
+                    </p>
+                    <hr>
+                </div>
 
-                            <%}
-                            else{%>
-                                <div class="w3-container">
-                                    <h5 class="w3-opacity"><b><%=job.getCompany().getName()%></b></h5>
-                                    <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i><%=job.getFrom()%> - <%=job.getTo()%>
-                                    </h6>
-                                    <p></p>
-                                    <hr>
-                                </div>
-                            <%}
+                <%
+                }
+                else
+                {
+                %>
+                <div class="w3-container">
+                    <h5 class="w3-opacity"><b><%=job.getCompany().getName()%>
+                    </b></h5>
+                    <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i><%=job.getFrom()%>
+                        - <%=job.getTo()%>
+                    </h6>
+                    <p><%=job.getDescription()%></p>
+                    <hr>
+                </div>
+                <%
+                            }
                         }
-                        }
+                    }
                 %>
             </div>
 
@@ -176,7 +194,7 @@
                 </h2>
                 <div id="id02" class="modal">
 
-                    <form class="modal-content animate" action="/action_page.php">
+                    <form class="modal-content animate" action="/UpdateEducation" id="form-education">
                         <div class="container">
                             <input type="email" name="email" value="<%=user.getEmail()%>" hidden>
                             <input type="password" name="password" value="<%=user.getPassword()%>" hidden>
@@ -189,11 +207,11 @@
 
                             <label for="from"><b>From </b></label>
                             <label for="current"><b>- Current</b></label>
-                            <input id='curr-edu' type="checkbox" name="current" required>
+                            <input id='curr-edu' type="checkbox" name="current">
                             <input type="month" name="from" required>
 
                             <label class="hideable-check-edu" for="to"><b>To</b></label>
-                            <input class="hideable-check-edu" type="month" name="to" required>
+                            <input class="hideable-check-edu" type="month" name="to">
 
 
                             <button type="button" id="ok-education" class="ok-btn">Ok</button>
@@ -201,23 +219,47 @@
                     </form>
                 </div>
 
+                <%
+                    if (user != null && user.getEducationArray() != null)
+                    {
+                        Education[] educationList = user.getEducationArray();
+
+                        for (Education edu : educationList)
+                        {
+                            if (edu.getTo().equals("current"))
+                            {%>
+
                 <div class="w3-container">
-                    <h5 class="w3-opacity"><b>W3Schools.com</b></h5>
-                    <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Forever</h6>
-                    <p>Web Development! All I need to know in one place</p>
+                    <h5 class="w3-opacity"><b><%=edu.getSchool().getName()%>
+                    </b></h5>
+                    <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i><%=edu.getFrom()%> -
+                        <span
+                                class="w3-tag w3-teal w3-round">Current</span></h6>
+                    <p><%=edu.getDegree()%>
+                    </p>
                     <hr>
                 </div>
+
+                <%
+                }
+                else
+                {
+                %>
                 <div class="w3-container">
-                    <h5 class="w3-opacity"><b>London Business School</b></h5>
-                    <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2013 - 2015</h6>
-                    <p>Master Degree</p>
+                    <h5 class="w3-opacity"><b><%=edu.getSchool().getName()%>
+                    </b></h5>
+                    <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i><%=edu.getFrom()%>
+                        - <%=edu.getTo()%>
+                    </h6>
+                    <p><%=edu.getDegree()%></p>
                     <hr>
                 </div>
-                <div class="w3-container">
-                    <h5 class="w3-opacity"><b>School of Coding</b></h5>
-                    <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2010 - 2013</h6>
-                    <p>Bachelor Degree</p><br>
-                </div>
+                <%
+                            }
+                        }
+                    }
+                %>
+
             </div>
 
             <!-- End Right Column -->

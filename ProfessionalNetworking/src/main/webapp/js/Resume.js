@@ -23,9 +23,13 @@ function updateExperienceAPI(){
     submitForm($('#form-experience'))
 }
 
+function updateEducationAPI(){
+    submitForm($('#form-education'))
+}
+
 function submitForm(form){
-    var url = form.attr("action");
-    var formData = $(form).serializeArray();
+    let url = form.attr("action");
+    let formData = $(form).serializeArray();
     $.post(url, formData).done(function (data) {
         console.log('Data sended to server successfully');
     }).fail(function (xhr, status, exception) {
@@ -33,7 +37,7 @@ function submitForm(form){
     });
 }
 
-function createInfoDiv(isCurrent, name, to, from){
+function createInfoDiv(isCurrent, name, to, from, extraInfo){
     let outerDiv=$('<div>');
     $(outerDiv).attr('class', 'w3-container');
 
@@ -58,7 +62,7 @@ function createInfoDiv(isCurrent, name, to, from){
     
     if(isCurrent){
         let span0=$('<span>');
-        $(span0).html(to+ ' - ');
+        $(span0).html(from+ ' - ');
         $(h6).append($(span0));
 
         let span1=$('<span>');
@@ -68,14 +72,23 @@ function createInfoDiv(isCurrent, name, to, from){
     }
     else{
         let span0=$('<span>');
-        $(span0).html(to+ ' - ' + from);
+        $(span0).html(from+ ' - ' + to);
         $(h6).append($(span0));
     }
     $(outerDiv).append($(h6));
-    $(outerDiv).append($('<p>'));
+
+    let para=$('<p>');
+    $(para).html(extraInfo);
+
+    $(outerDiv).append($(para));
     $(outerDiv).append($('<hr>'));
 
     return $(outerDiv);
+}
+
+function getFormatedDateText(inputDate) {
+    let date = new Date(inputDate)
+    return MONTHNAMES[(date.getMonth()+1)%12] + ' '+ date.getFullYear();
 }
 
 function onClickBtnOkExperience(event){
@@ -88,21 +101,51 @@ function onClickBtnOkExperience(event){
     //Update experience on client side
     let formData=$('#form-experience').serialize();
 
+    //Extract form data
     let employerName=document.forms['form-experience'].elements['employer'].value;
-    let from=new Date(document.forms['form-experience'].elements['from'].value);
-    from=MONTHNAMES[(from.getMonth()+1)%12] + ' '+ from.getFullYear();
-    let to=new Date(document.forms['form-experience'].elements['to'].value);
-    to=MONTHNAMES[(to.getMonth()+1)%12] + ' ' + to.getFullYear();
+    let from=getFormatedDateText(document.forms['form-experience'].elements['from'].value);
+    let to=getFormatedDateText(document.forms['form-experience'].elements['to'].value);
+    let description=document.forms['form-experience'].elements['description'].value;
+
     let current=$('#curr-job').is(':checked') ;
 
-    var infoDiv=createInfoDiv(current, employerName, to, from);
-    
+    //Create container for the purpose of data display
+    let infoDiv=createInfoDiv(current, employerName, to, from, description);
+
+    //Add container in html
     $('#id01').after($(infoDiv));
+
+    //Clear all form fields
+    $('#form-experience').trigger("reset");
+
+    //to=MONTHNAMES[(to.getMonth()+1)%12] + ' ' + to.getFullYear();
 }
 
 function onClickBtnOkEducation(event){
     //Close the dialog
     $("#id02").css("display", 'none');
+
+    //Update education on server side
+    updateEducationAPI();
+
+    //Update education on client side
+    let formData=$('#form-education').serialize();
+
+    //Extract form data
+    let schoolName=document.forms['form-education'].elements['school'].value;
+    let from=getFormatedDateText(document.forms['form-education'].elements['from'].value);
+    let to=getFormatedDateText(document.forms['form-education'].elements['to'].value);
+    let degree=document.forms['form-education'].elements['degree'].value;
+    let current=$('#curr-edu').is(':checked') ;
+
+    //Create container for the purpose of data display
+    let infoDiv=createInfoDiv(current, schoolName, to, from, degree);
+
+    //Add container in html
+    $('#id02').after($(infoDiv));
+
+    //Clear all form fields
+    $('#form-education').trigger("reset");
 }
 
 
@@ -113,6 +156,10 @@ function onWindowClick(event){
     if(event.target == modal1 || event.target==modal2){
         $("#id01").css("display", 'none');
         $("#id02").css("display", 'none');
+
+        //Clear all form fields
+        $('#form-experience').trigger("reset");
+        $('#form-education').trigger("reset");
     }
 }
 

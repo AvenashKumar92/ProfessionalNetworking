@@ -1,2 +1,6 @@
 All Textboxes validation
 confirm pass vs new pass
+Work education form validation
+Date proper format display when data comming from server side
+Theme Sync
+clear fields when dialog is open
